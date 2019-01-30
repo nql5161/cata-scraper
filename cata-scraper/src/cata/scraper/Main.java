@@ -81,18 +81,22 @@ public class Main extends Application {
         bc.setTitle("CATA Bus Rider Count");
         xAxis.setLabel("Bus Route");
         yAxis.setLabel("# of passengers");
-        XYChart.Series bus1 = new XYChart.Series();
-        XYChart.Series bus2 = new XYChart.Series();
-        XYChart.Series bus3 = new XYChart.Series();
-        bus1.setName("Blue Loop");
-        bus2.setName("White Loop");
-        bus3.setName("Red Link");
-        bus1.getData().add(new XYChart.Data(time, 50));
-        bus2.getData().add(new XYChart.Data(time, 55));
-        bus3.getData().add(new XYChart.Data(time, 20));
-        buses.add(bus1);
-        buses.add(bus2);
-        buses.add(bus3);
+        XYChart.Series blueLoop = new XYChart.Series();
+        XYChart.Series whiteLoop = new XYChart.Series();
+        XYChart.Series redLink = new XYChart.Series();
+        XYChart.Series greenLink = new XYChart.Series();
+        blueLoop.setName("Blue Loop");
+        whiteLoop.setName("White Loop");
+        redLink.setName("Red Link");
+        greenLink.setName("Green Link");
+        blueLoop.getData().add(new XYChart.Data(time, 50));
+        whiteLoop.getData().add(new XYChart.Data(time, 55));
+        redLink.getData().add(new XYChart.Data(time, 20));
+        greenLink.getData().add(new XYChart.Data(time, 20));
+        buses.add(blueLoop);
+        buses.add(whiteLoop);
+        buses.add(redLink);
+        buses.add(greenLink);
 //        for(int i = 0; i < passengerCount.length; i++){
 //            for (int j = 0; j < buses.toArray().length; j++){
 //                bus = new XYChart.Series();
