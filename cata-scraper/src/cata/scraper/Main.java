@@ -97,16 +97,7 @@ public class Main extends Application {
         buses.add(whiteLoop);
         buses.add(redLink);
         buses.add(greenLink);
-//        for(int i = 0; i < passengerCount.length; i++){
-//            for (int j = 0; j < buses.toArray().length; j++){
-//                bus = new XYChart.Series();
-//                buses.add(bus);
-//                bus[i] = bus.getData().add(new XYChart.Data(passengerCount[i]));
-//            }
-//        }
-//        for(XYChart.Series bus : buses){
-//
-//        }
+
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(new KeyFrame(Duration.millis(2000),
                 (ActionEvent actionEvent) -> {
