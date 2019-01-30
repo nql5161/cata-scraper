@@ -3,6 +3,7 @@ package cata.scraper;
 //import com.google.gson.Gson;
 //import com.google.gson.JsonObject;
 //import com.google.gson.JsonParser;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,41 +26,9 @@ import java.util.ArrayList;
 
 public class Main extends Application {
 
-    final static String blueLoop = "Blue Loop";
-    final static String whiteLoop = "White Loop";
-    static ArrayList buses = new ArrayList<XYChart.Series>();
-    private static String json;
+    static ArrayList busChart = new ArrayList<XYChart.Series>();
 
-    public static String getConnection() {
-        String link = "https://realtime.catabus.com/InfoPoint/rest/Routes/GetAllRoutes";
-        try {
-            URL url = new URL(link);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200){
-                System.out.println("Connection is successful!");
-            }
-            try(BufferedReader br = new BufferedReader
-                    (new InputStreamReader(connection.getInputStream()))){
-                String input;
-                StringBuffer response = new StringBuffer();
-                while((input = br.readLine()) != null){
-                    response.append(input);
-                }
 
-                json = String.valueOf(response);
-//                System.out.println(response.toString());
-//                System.out.println(json);
-//                scraper(json);
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return json;
-    }
 //
 //    public static void scraper(String json){
 //        Gson gson = new Gson();
@@ -73,6 +42,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 //        Parent root = FXMLLoader.load(getClass().getResource("catascraper.fxml"));
+
+
+        Connection jsonData = new Connection();
+        System.out.println(jsonData.getData());
+        //Bus[] buses = new Gson.fromJson(jsonData.getData(), Bus[].class);
+
         String time = "10am";
         stage.setTitle("CATA Bus Statistics");
         final CategoryAxis xAxis = new CategoryAxis();
@@ -81,22 +56,32 @@ public class Main extends Application {
         bc.setTitle("CATA Bus Rider Count");
         xAxis.setLabel("Bus Route");
         yAxis.setLabel("# of passengers");
+
+
         XYChart.Series blueLoop = new XYChart.Series();
         XYChart.Series whiteLoop = new XYChart.Series();
         XYChart.Series redLink = new XYChart.Series();
         XYChart.Series greenLink = new XYChart.Series();
+
+
         blueLoop.setName("Blue Loop");
         whiteLoop.setName("White Loop");
         redLink.setName("Red Link");
         greenLink.setName("Green Link");
+
+
+
+
         blueLoop.getData().add(new XYChart.Data(time, 50));
         whiteLoop.getData().add(new XYChart.Data(time, 55));
         redLink.getData().add(new XYChart.Data(time, 20));
         greenLink.getData().add(new XYChart.Data(time, 20));
-        buses.add(blueLoop);
-        buses.add(whiteLoop);
-        buses.add(redLink);
-        buses.add(greenLink);
+
+
+        busChart.add(blueLoop);
+        busChart.add(whiteLoop);
+        busChart.add(redLink);
+        busChart.add(greenLink);
 
         Timeline tl = new Timeline();
         tl.getKeyFrames().add(new KeyFrame(Duration.millis(2000),
@@ -112,7 +97,7 @@ public class Main extends Application {
         tl.setAutoReverse(true);
         tl.play();
         Scene scene = new Scene(bc, 800,600);
-        bc.getData().addAll(buses);
+        bc.getData().addAll(busChart);
         stage.setScene(scene);
         stage.show();
     }
@@ -120,8 +105,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        getConnection();
-        System.out.println(json);
+        //getConnection();
+        //System.out.println(json);
         launch(args);
     }
 }
